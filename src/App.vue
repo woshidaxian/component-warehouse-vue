@@ -3,15 +3,19 @@
     <header>
       <div>
         <span class="title">组件仓库-VUE</span>
-        <input type="text" placeholder="输入关键词搜索..." class="inp-search">
+        <input type="text" placeholder="输入关键词搜索（作者、组件关键词）..." class="inp-search">
+        <span class="btn-search">搜索</span>
       </div>
-      <div class="login-btn">登录</div>
+      <div style="display: flex">
+        <div class="btn-subscrible">使用说明</div>
+        <div class="login-btn">登录</div>
+      </div>
     </header>
     <router-view/>
     <footer>
-      版权所有All Rights Reserved 
+      版权所有All Rights Reserved http://component.wghuang.fun
       <a href="https://github.com/woshidaxian" target="blank">
-        https://github.com/woshidaxian
+        （https://github.com/woshidaxian）
       </a>
       <!-- <span>请联系wghuangzj@sina.com</span> -->
     </footer>
@@ -75,6 +79,16 @@ header{
     margin-left: 20px;
     text-indent: 1em;
   }
+  .btn-search{
+    display: inline-block;
+    color: #fff;
+    margin-left: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #00458b;
+    padding: 4px 18px;
+    border-radius: 10px;
+  }
   .login-btn{
     width: 60px;
     height: 25px;
@@ -82,6 +96,13 @@ header{
     border-radius: 13px;
     background: #fff;
     color: #005bb6;
+    cursor: pointer;
+  }
+  .btn-subscrible{
+    color: rgba(255, 255, 255, 0.767);
+    font-weight: bold;
+    margin-right: 30px;
+    line-height: 25px;
     cursor: pointer;
   }
 }
