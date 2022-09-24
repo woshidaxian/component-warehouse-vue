@@ -1,23 +1,31 @@
 <!--  -->
 <template>
   <div class="page">
-    <div class="list">
-      <div
+    <el-row class="list" :gutter="15">
+      <el-col
         v-for="(item, index) in list"
         :key="index"
-        class="list-item"
+        :xs="12" :sm="8" :md="6" :lg="6" :xl="4"
       >
-        <div class="info-img">
-          <img :src="item.img" alt="">
-          <div class="img-mask">
-            <div class="btn-look">查看详情</div>
+        <div class="list-item">
+          <div class="info-img">
+            <img :src="item.img" alt="">
+            <div class="img-mask">
+              <div class="btn-look">查看详情</div>
+            </div>
+          </div>
+          <div class="info-box">
+            <div class="info-title ellipsis">{{item.title}}</div>
+            <div class="info-author"><span>贡献人：</span>{{item.author}}</div>
+            <div class="info-time"><span>入库时间：</span>{{item.time}}</div>
+            <div class="flex-row-between" style="margin-top: 5px;">
+              <div class="info-download"><span>下载量：</span>{{item.download}}次</div>
+              <div class="info-file ellipsis">{{item.fileName}}</div>
+            </div>
           </div>
         </div>
-        <div class="info-box">
-          <div class="info-title">{{item.title}}</div>
-        </div>
-      </div>
-    </div>
+      </el-col>
+    </el-row>
     <div class="page-box">
       <el-pagination
         background
@@ -158,22 +166,32 @@ export default {
 
 </script>
 <style lang='scss' scoped>
+.ellipsis{
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.ellipsis1{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+.flex-row-between{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 .page{
   padding-bottom: 40px;
   padding-top: 70px;
-  padding-left: 20px;
-  padding-right: 20px;
-  min-height: 100%;
+  padding-left: 15px;
+  height: 100%;
   .list{
     width: 100%;
-    min-height: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
     .list-item{
-      width: 24%;
-      height: 400px;
+      height: 350px;
       background: #fff;
       border-radius: 16px;
       margin-bottom: 20px;
@@ -227,19 +245,51 @@ export default {
       }
       .info-box{
         padding: 15px;
+        text-align: left;
       }
       .info-title{
         width: 100%;
         text-align: left;
         font-family: 黑体;
         font-weight: bold;
-        height: 40px;
+        line-height: 20px;
         overflow: hidden;
+        font-size: 15px;
+        border-bottom: 1px solid rgb(231, 231, 231);
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+      }
+      .info-time{
+        color: rgb(168, 168, 168);
+        margin-top: 5px;
+      }
+      .info-author{
+        font-size: 14px;
+        font-weight: bold;
+        font-family: 楷体;
+      }
+      .info-download{
+        color: rgb(168, 168, 168);
+        font-size: 13px;
+      }
+      .info-file{
+        flex: 1;
+        text-align: right;
+        color: rgb(0, 158, 231);
+        font-weight: bold;
+        font-family: 楷体;
+        font-size: 15px;
+        cursor: pointer;
+        padding-left: 5px;
+        &:hover{
+          text-decoration: underline;
+        }
       }
     }
   }
   .page-box{
     padding: 10px 0;
+    height: 35px;
   }
 }
 </style>
