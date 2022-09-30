@@ -17,11 +17,24 @@
       <a href="https://github.com/woshidaxian" target="blank">
         （https://github.com/woshidaxian）
       </a>
-      <!-- <span>请联系wghuangzj@sina.com</span> -->
+      <span class="back-btn" @click="goBack">后台管理</span>
     </footer>
   </div>
 </template>
-
+<script>
+export default {
+  data() {
+    return {
+      
+    }
+  },
+  methods: {
+    goBack() {
+      this.$router.push('/back')
+    }
+  },
+}
+</script>
 <style lang="scss">
 html,body{
   height: 100%;
@@ -119,5 +132,8 @@ footer{
     text-decoration: none;
     color: #005bb699;
   }
+}
+.back-btn{
+  cursor: pointer;
 }
 </style>

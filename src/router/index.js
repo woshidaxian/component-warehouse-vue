@@ -10,6 +10,23 @@ const routes = [
     name: 'index',
     component: index
   },
+  {
+    path: '/back',
+    name: '后台管理',
+    children: [
+      {
+        path: '/back/users',
+        name: '用户管理',
+        component: () => import('./../views/back/user.vue')
+      },
+      {
+        path: '/back/component',
+        name: '组件管理',
+        component: () => import('./../views/back/component.vue')
+      }
+    ],
+    redirect: '/back/component'
+  }
 ]
 
 const router = new VueRouter({
