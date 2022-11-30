@@ -128,6 +128,106 @@ export default {
           download: 100,
           fileName: 'energy-control.vue',
           fileUrl: ''
+        },
+        {
+          id: 1,
+          title: '物联弹窗-能耗管理',
+          img: require('./../assets/image/chaar.png'),
+          time: '2022-08-08 12:12:12',
+          author: 'hwg',
+          download: 100,
+          fileName: 'energy-control.vue',
+          fileUrl: ''
+        },
+        {
+          id: 1,
+          title: '物联弹窗-能耗管理',
+          img: require('./../assets/image/chaar.png'),
+          time: '2022-08-08 12:12:12',
+          author: 'hwg',
+          download: 100,
+          fileName: 'energy-control.vue',
+          fileUrl: ''
+        },
+        {
+          id: 1,
+          title: '物联弹窗-能耗管理',
+          img: require('./../assets/image/chaar.png'),
+          time: '2022-08-08 12:12:12',
+          author: 'hwg',
+          download: 100,
+          fileName: 'energy-control.vue',
+          fileUrl: ''
+        },
+        {
+          id: 1,
+          title: '物联弹窗-能耗管理',
+          img: require('./../assets/image/chaar.png'),
+          time: '2022-08-08 12:12:12',
+          author: 'hwg',
+          download: 100,
+          fileName: 'energy-control.vue',
+          fileUrl: ''
+        },
+        {
+          id: 1,
+          title: '物联弹窗-能耗管理',
+          img: require('./../assets/image/chaar.png'),
+          time: '2022-08-08 12:12:12',
+          author: 'hwg',
+          download: 100,
+          fileName: 'energy-control.vue',
+          fileUrl: ''
+        },
+        {
+          id: 1,
+          title: '物联弹窗-能耗管理',
+          img: require('./../assets/image/chaar.png'),
+          time: '2022-08-08 12:12:12',
+          author: 'hwg',
+          download: 100,
+          fileName: 'energy-control.vue',
+          fileUrl: ''
+        },
+        {
+          id: 1,
+          title: '物联弹窗-能耗管理',
+          img: require('./../assets/image/chaar.png'),
+          time: '2022-08-08 12:12:12',
+          author: 'hwg',
+          download: 100,
+          fileName: 'energy-control.vue',
+          fileUrl: ''
+        },
+        {
+          id: 1,
+          title: '物联弹窗-能耗管理',
+          img: require('./../assets/image/chaar.png'),
+          time: '2022-08-08 12:12:12',
+          author: 'hwg',
+          download: 100,
+          fileName: 'energy-control.vue',
+          fileUrl: ''
+        },
+        {
+          id: 1,
+          title: '物联弹窗-能耗管理',
+          img: require('./../assets/image/chaar.png'),
+          time: '2022-08-08 12:12:12',
+          author: 'hwg',
+          download: 100,
+          fileName: 'energy-control.vue',
+          fileUrl: ''
+        },
+        {
+          id: 1,
+          title: '物联弹窗-能耗管理',
+          img: require('./../assets/image/chaar.png'),
+          time: '2022-08-08 12:12:12',
+          author: 'hwg',
+          download: 100,
+          fileName: 'energy-control.vue',
+          fileUrl: ''
         }
       ],
       isLoading: false,
@@ -266,7 +366,6 @@ export default {
       .info-author{
         font-size: 14px;
         font-weight: bold;
-        font-family: 楷体;
       }
       .info-download{
         color: rgb(168, 168, 168);
@@ -277,8 +376,7 @@ export default {
         text-align: right;
         color: rgb(0, 158, 231);
         font-weight: bold;
-        font-family: 楷体;
-        font-size: 15px;
+        font-size: 13px;
         cursor: pointer;
         padding-left: 5px;
         &:hover{

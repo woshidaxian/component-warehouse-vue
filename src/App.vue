@@ -3,8 +3,16 @@
     <header>
       <div>
         <span class="title">组件仓库-VUE</span>
-        <input type="text" placeholder="输入关键词搜索（作者、组件关键词）..." class="inp-search">
-        <span class="btn-search">搜索</span>
+        <input type="text" placeholder="输入关键词搜索..." class="inp-search">
+        <el-select v-model="value" placeholder="请选择组件类型" size="small">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+        <span class="btn-search">搜&nbsp;&nbsp;索</span>
       </div>
       <div style="display: flex">
         <div class="btn-subscrible">使用说明</div>
@@ -13,10 +21,13 @@
     </header>
     <router-view/>
     <footer>
-      版权所有All Rights Reserved http://component.wghuang.fun
-      <a href="https://github.com/woshidaxian" target="blank">
-        （https://github.com/woshidaxian）
-      </a>
+      版权所有All Rights Reserved http://component.wghuang.fun&nbsp;|&nbsp;
+      <a href="https://beian.miit.gov.cn/" target="blank">
+        浙ICP备2021016384号-3
+      </a>&nbsp;|&nbsp;
+      <a href="http://find.wghuang.fun" target="blank">
+        搜分支
+      </a>&nbsp;|&nbsp;
       <span class="back-btn" @click="goBack">后台管理</span>
     </footer>
   </div>
@@ -25,7 +36,23 @@
 export default {
   data() {
     return {
-      
+      options: [{
+          value: '选项1',
+          label: '黄金糕'
+        }, {
+          value: '选项2',
+          label: '双皮奶'
+        }, {
+          value: '选项3',
+          label: '蚵仔煎'
+        }, {
+          value: '选项4',
+          label: '龙须面'
+        }, {
+          value: '选项5',
+          label: '北京烤鸭'
+        }],
+        value: ''
     }
   },
   methods: {
@@ -40,7 +67,6 @@ html,body{
   height: 100%;
 }
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -69,7 +95,7 @@ html,body{
 header{
   width: calc(100% - 30px);
   padding: 0 15px;
-  height: 50px;
+  height: 55px;
   background: #005bb6;
   display: flex;
   flex-direction: row;
@@ -80,17 +106,18 @@ header{
   .title{
     font-size: 15px;
     color: #fff;
-    font-family: 黑体;
     font-weight: bold;
   }
   .inp-search{
-    width: 250px;
-    height: 25px;
-    border-radius: 13px;
+    width: 300px;
+    height: 32px;
+    border-radius: 4px;
+    font-size: 13px;
     outline: none;
     border: none;
     margin-left: 20px;
     text-indent: 1em;
+    margin-right: 25px;
   }
   .btn-search{
     display: inline-block;
@@ -99,8 +126,10 @@ header{
     font-weight: bold;
     cursor: pointer;
     background: #00458b;
-    padding: 4px 18px;
-    border-radius: 10px;
+    text-align: center;
+    line-height: 30px;
+    width: 70px;
+    border-radius: 15px;
   }
   .login-btn{
     width: 60px;
@@ -135,5 +164,6 @@ footer{
 }
 .back-btn{
   cursor: pointer;
+  text-decoration: underline;
 }
 </style>
