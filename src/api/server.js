@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
+import store from './../store'
 
 // 创建axios实例
 const service = axios.create({
@@ -10,7 +11,7 @@ service.interceptors.request.use(
   (config) => {
     config.headers.userId = sessionStorage.getItem('userId')
     config.headers['Content-Type'] = 'application/json;charset=utf-8'
-    config.headers.token = sessionStorage.getItem('token') ? sessionStorage.getItem('token') : ''
+    config.headers.token = sessionStorage.getItem('token')||store.state.token
     return config
   },
   error => {

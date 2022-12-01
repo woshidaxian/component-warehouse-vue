@@ -5,7 +5,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    searchKey: ''
+    searchKey: '',
+    isLogin: false,
+    token: '',
+    userAccount: 'HWG'
   },
   mutations: {
   },

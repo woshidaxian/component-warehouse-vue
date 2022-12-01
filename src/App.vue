@@ -16,7 +16,13 @@
       </div>
       <div style="display: flex">
         <div class="btn-subscrible">使用说明</div>
-        <div class="login-btn">登录</div>
+        <div class="login-btn" @click="showLogin=true" v-if="!$store.state.isLogin">登录</div>
+        <div class="register-btn" v-if="!$store.state.isLogin">注册</div>
+        <div class="user-info" v-else>
+          <i class="el-icon-user"></i>
+          <span>{{$store.state.userAccount}}</span>
+          <div>个人中心</div>
+        </div>
       </div>
     </header>
     <router-view ref="page"/>
@@ -30,6 +36,7 @@
       </a>&nbsp;|&nbsp;
       <span class="back-btn" @click="goBack">后台管理</span>
     </footer>
+    <h-login v-if="showLogin"></h-login>
   </div>
 </template>
 <script>
@@ -39,7 +46,8 @@ export default {
     return {
       typeList: [],
       typeId: '',
-      key: ''
+      key: '',
+      showLogin: false
     }
   },
   mounted() {
@@ -65,6 +73,7 @@ export default {
 <style lang="scss">
 html,body{
   height: 100%;
+  overflow: hidden;
 }
 #app {
   -webkit-font-smoothing: antialiased;
@@ -74,6 +83,7 @@ html,body{
   width: 100%;
   min-height: 100%;
   background: rgb(236, 236, 236);
+  overflow: hidden;
 }
 
 #nav {
@@ -128,8 +138,13 @@ header{
     background: #00458b;
     text-align: center;
     line-height: 30px;
-    width: 70px;
+    width: 100px;
     border-radius: 15px;
+    transition: all .3s;
+    &:hover{
+      background: #fff;
+      color: #005bb6;
+    }
   }
   .login-btn{
     width: 60px;
@@ -139,6 +154,36 @@ header{
     background: #fff;
     color: #005bb6;
     cursor: pointer;
+  }
+  .register-btn{
+    background: #00458b;
+    color: #fff;
+    width: 60px;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 13px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  .user-info{
+    display: flex;
+    align-items: center;
+    height: 25px;
+    line-height: 25px;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+    div{
+      margin-left: 20px;
+      &:hover{
+        text-decoration: underline;
+      }
+    }
+    i{
+      margin-right: 5px;
+      color: #fff;
+      font-size: 15px;
+    }
   }
   .btn-subscrible{
     color: rgba(255, 255, 255, 0.767);

@@ -13,6 +13,12 @@ Object.keys(components).forEach((key) => {
   Vue.component(`h${name}`, components[key])
 });
 
+let token = sessionStorage.getItem('token')
+if(token){
+  store.state.isLogin = true
+  store.state.token = token
+  store.state.userAccount = sessionStorage.getItem('account')
+}
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
