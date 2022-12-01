@@ -3,23 +3,23 @@
     <header>
       <div>
         <span class="title">组件仓库-VUE</span>
-        <input type="text" placeholder="输入关键词搜索..." class="inp-search">
-        <el-select v-model="value" placeholder="请选择组件类型" size="small">
+        <input type="text" v-model="key" placeholder="输入关键词搜索..." class="inp-search">
+        <el-select v-model="typeId" placeholder="请选择组件类型" size="small" filterable clearable @change="search">
           <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
+            v-for="(item, index) in typeList"
+            :key="index"
+            :label="item.typeName"
+            :value="item.id">
           </el-option>
         </el-select>
-        <span class="btn-search">搜&nbsp;&nbsp;索</span>
+        <span class="btn-search" @click="search">搜&nbsp;&nbsp;索</span>
       </div>
       <div style="display: flex">
         <div class="btn-subscrible">使用说明</div>
         <div class="login-btn">登录</div>
       </div>
     </header>
-    <router-view/>
+    <router-view ref="page"/>
     <footer>
       版权所有All Rights Reserved http://component.wghuang.fun&nbsp;|&nbsp;
       <a href="https://beian.miit.gov.cn/" target="blank">
@@ -33,31 +33,31 @@
   </div>
 </template>
 <script>
+import * as getData from './api/server'
 export default {
   data() {
     return {
-      options: [{
-          value: '选项1',
-          label: '黄金糕'
-        }, {
-          value: '选项2',
-          label: '双皮奶'
-        }, {
-          value: '选项3',
-          label: '蚵仔煎'
-        }, {
-          value: '选项4',
-          label: '龙须面'
-        }, {
-          value: '选项5',
-          label: '北京烤鸭'
-        }],
-        value: ''
+      typeList: [],
+      typeId: '',
+      key: ''
     }
+  },
+  mounted() {
+    this.getTypeList()
   },
   methods: {
     goBack() {
       this.$router.push('/back')
+    },
+    getTypeList(){
+      getData.typeList({pageSize: 100}).then(res=>{
+        if(res.data.code == 1){
+          this.typeList = res.data.data.list
+        }
+      })
+    },
+    search(){
+      this.$refs['page'].search(this.typeId, this.key)
     }
   },
 }

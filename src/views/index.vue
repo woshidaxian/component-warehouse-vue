@@ -9,23 +9,27 @@
       >
         <div class="list-item">
           <div class="info-img">
-            <img :src="item.img" alt="">
+            <!-- <img :src="item.img" alt=""> -->
             <div class="img-mask">
               <div class="btn-look">查看详情</div>
             </div>
           </div>
           <div class="info-box">
-            <div class="info-title ellipsis">{{item.title}}</div>
-            <div class="info-author"><span>贡献人：</span>{{item.author}}</div>
-            <div class="info-time"><span>收录时间：</span>{{item.time}}</div>
+            <div class="info-title ellipsis">{{item.name}}</div>
+            <div class="info-author"><span>贡献人：</span>{{item.realName}}</div>
+            <div class="info-time"><span>收录时间：</span>{{new Date(item.created_at).format('yyyy-MM-dd hh:mm:ss')}}</div>
             <div class="flex-row-between" style="margin-top: 5px;">
-              <div class="info-download"><span>下载量：</span>{{item.download}}次</div>
-              <div class="info-file ellipsis">{{item.fileName}}</div>
+              <div class="info-download"><span>下载量：</span>{{item.downloadNum}}次</div>
+              <div class="info-file ellipsis">{{item.componentName}}</div>
             </div>
           </div>
         </div>
       </el-col>
     </el-row>
+    <div class="no-data" v-if="list.length == 0">
+      <img src="./../assets/image/none.png" alt="">
+      <div>暂无数据</div>
+    </div>
     <div class="page-box">
       <el-pagination
         background
@@ -42,211 +46,47 @@
 </template>
 
 <script>
+import * as getData from './../api/server'
 export default {
   components: {
   },
 
   data () {
     return {
-      list: [
-        {
-          id: 1,
-          title: '物联弹窗-能耗管理',
-          img: require('./../assets/image/chaar.png'),
-          time: '2022-08-08 12:12:12',
-          author: 'hwg',
-          download: 100,
-          fileName: 'energy-control.vue',
-          fileUrl: ''
-        },
-        {
-          id: 1,
-          title: '物联弹窗-能耗管理',
-          img: require('./../assets/image/chaar.png'),
-          time: '2022-08-08 12:12:12',
-          author: 'hwg',
-          download: 100,
-          fileName: 'energy-control.vue',
-          fileUrl: ''
-        },
-        {
-          id: 1,
-          title: '物联弹窗-能耗管理',
-          img: require('./../assets/image/chaar.png'),
-          time: '2022-08-08 12:12:12',
-          author: 'hwg',
-          download: 100,
-          fileName: 'energy-control.vue',
-          fileUrl: ''
-        },
-        {
-          id: 1,
-          title: '物联弹窗-能耗管理',
-          img: require('./../assets/image/chaar.png'),
-          time: '2022-08-08 12:12:12',
-          author: 'hwg',
-          download: 100,
-          fileName: 'energy-control.vue',
-          fileUrl: ''
-        },
-        {
-          id: 1,
-          title: '物联弹窗-能耗管理',
-          img: require('./../assets/image/chaar.png'),
-          time: '2022-08-08 12:12:12',
-          author: 'hwg',
-          download: 100,
-          fileName: 'energy-control.vue',
-          fileUrl: ''
-        },
-        {
-          id: 1,
-          title: '物联弹窗-能耗管理',
-          img: require('./../assets/image/chaar.png'),
-          time: '2022-08-08 12:12:12',
-          author: 'hwg',
-          download: 100,
-          fileName: 'energy-control.vue',
-          fileUrl: ''
-        },
-        {
-          id: 1,
-          title: '物联弹窗-能耗管理',
-          img: require('./../assets/image/chaar.png'),
-          time: '2022-08-08 12:12:12',
-          author: 'hwg',
-          download: 100,
-          fileName: 'energy-control.vue',
-          fileUrl: ''
-        },
-        {
-          id: 1,
-          title: '物联弹窗-能耗管理',
-          img: require('./../assets/image/chaar.png'),
-          time: '2022-08-08 12:12:12',
-          author: 'hwg',
-          download: 100,
-          fileName: 'energy-control.vue',
-          fileUrl: ''
-        },
-        {
-          id: 1,
-          title: '物联弹窗-能耗管理',
-          img: require('./../assets/image/chaar.png'),
-          time: '2022-08-08 12:12:12',
-          author: 'hwg',
-          download: 100,
-          fileName: 'energy-control.vue',
-          fileUrl: ''
-        },
-        {
-          id: 1,
-          title: '物联弹窗-能耗管理',
-          img: require('./../assets/image/chaar.png'),
-          time: '2022-08-08 12:12:12',
-          author: 'hwg',
-          download: 100,
-          fileName: 'energy-control.vue',
-          fileUrl: ''
-        },
-        {
-          id: 1,
-          title: '物联弹窗-能耗管理',
-          img: require('./../assets/image/chaar.png'),
-          time: '2022-08-08 12:12:12',
-          author: 'hwg',
-          download: 100,
-          fileName: 'energy-control.vue',
-          fileUrl: ''
-        },
-        {
-          id: 1,
-          title: '物联弹窗-能耗管理',
-          img: require('./../assets/image/chaar.png'),
-          time: '2022-08-08 12:12:12',
-          author: 'hwg',
-          download: 100,
-          fileName: 'energy-control.vue',
-          fileUrl: ''
-        },
-        {
-          id: 1,
-          title: '物联弹窗-能耗管理',
-          img: require('./../assets/image/chaar.png'),
-          time: '2022-08-08 12:12:12',
-          author: 'hwg',
-          download: 100,
-          fileName: 'energy-control.vue',
-          fileUrl: ''
-        },
-        {
-          id: 1,
-          title: '物联弹窗-能耗管理',
-          img: require('./../assets/image/chaar.png'),
-          time: '2022-08-08 12:12:12',
-          author: 'hwg',
-          download: 100,
-          fileName: 'energy-control.vue',
-          fileUrl: ''
-        },
-        {
-          id: 1,
-          title: '物联弹窗-能耗管理',
-          img: require('./../assets/image/chaar.png'),
-          time: '2022-08-08 12:12:12',
-          author: 'hwg',
-          download: 100,
-          fileName: 'energy-control.vue',
-          fileUrl: ''
-        },
-        {
-          id: 1,
-          title: '物联弹窗-能耗管理',
-          img: require('./../assets/image/chaar.png'),
-          time: '2022-08-08 12:12:12',
-          author: 'hwg',
-          download: 100,
-          fileName: 'energy-control.vue',
-          fileUrl: ''
-        },
-        {
-          id: 1,
-          title: '物联弹窗-能耗管理',
-          img: require('./../assets/image/chaar.png'),
-          time: '2022-08-08 12:12:12',
-          author: 'hwg',
-          download: 100,
-          fileName: 'energy-control.vue',
-          fileUrl: ''
-        },
-        {
-          id: 1,
-          title: '物联弹窗-能耗管理',
-          img: require('./../assets/image/chaar.png'),
-          time: '2022-08-08 12:12:12',
-          author: 'hwg',
-          download: 100,
-          fileName: 'energy-control.vue',
-          fileUrl: ''
-        }
-      ],
+      list: [],
       isLoading: false,
       filters: {
         pageSize: 10,
         pageIndex: 1,
         total: 1000,
-        keyWord: ''
-      }
+        keyWord: '',
+        type: '',
+        state: 1
+      },
+      typeList: []
     }
   },
 
   computed: {},
 
-  mounted() {},
+  mounted() {
+    this.getList()
+  },
 
   methods: {
+    search(id, key){
+      this.filters.pageIndex = 1
+      this.filters.type = id
+      this.filters.keyWord = key
+      this.getList()
+    },
     getList(){
-
+      getData.getComponentList(this.filters).then(res=>{
+        if(res.data.code === 1){
+          this.list = res.data.data.list
+          this.filters.total = res.data.data.total
+        }
+      })
     },
     handleSizeChange(val){
       this.filters.pageSize = val
@@ -254,11 +94,6 @@ export default {
     handleCurrentChange(val){
       this.filters.pageIndex = val
     },
-    search(){
-      this.filters.keyWord = this.$store.state.searchKey
-      this.filters.pageIndex = 1
-      this.getList()
-    }
   },
 
   beforeDestroy() {}
@@ -355,7 +190,7 @@ export default {
         line-height: 20px;
         overflow: hidden;
         font-size: 15px;
-        border-bottom: 1px solid rgb(231, 231, 231);
+        border-bottom: 1px solid rgb(240, 240, 240);
         margin-bottom: 10px;
         padding-bottom: 10px;
       }
@@ -388,6 +223,18 @@ export default {
   .page-box{
     padding: 10px 0;
     height: 35px;
+  }
+  .no-data{
+    padding-bottom: 100px;
+    padding-top: 100px;
+    img{
+      width: 400px;
+      height: 400px;
+    }
+    div{
+      font-weight: bold;
+      font-size: 18px;
+    }
   }
 }
 </style>
