@@ -7,9 +7,10 @@
         :key="index"
         :xs="12" :sm="8" :md="6" :lg="6" :xl="4"
       >
-        <div class="list-item">
+        <div class="list-item" @click="$router.push(`/detail?id=${item.id}`)">
           <div class="info-img">
-            <!-- <img :src="item.img" alt=""> -->
+            <img v-if="item.img" :src="item.img" alt="">
+            <img v-else src="./../assets/image/noimg.png" alt="">
             <div class="img-mask">
               <div class="btn-look">查看详情</div>
             </div>
@@ -35,6 +36,7 @@
         background
         layout="total, sizes, prev, pager, next, jumper"
         :total="filters.total"
+        :page-sizes="[30, 60, 90, 120]"
         :page-size="filters.pageSize"
         :current-page="filters.pageIndex"
         @current-change="handleCurrentChange"
@@ -56,7 +58,7 @@ export default {
       list: [],
       isLoading: false,
       filters: {
-        pageSize: 10,
+        pageSize: 30,
         pageIndex: 1,
         total: 1000,
         keyWord: '',
@@ -90,9 +92,11 @@ export default {
     },
     handleSizeChange(val){
       this.filters.pageSize = val
+      this.getList()
     },
     handleCurrentChange(val){
       this.filters.pageIndex = val
+      this.getList()
     },
   },
 
@@ -137,7 +141,6 @@ export default {
       }
       .info-img{
         width: 100%;
-        border-radius: 16px;
         height: 60%;
         cursor: pointer;
         background-repeat: no-repeat;

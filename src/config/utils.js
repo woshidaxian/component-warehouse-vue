@@ -1,3 +1,5 @@
+import crypto from 'crypto-js'
+
 Date.prototype.format = function (format) {
   var o = {
     "M+": this.getMonth() + 1,  //month
@@ -21,4 +23,22 @@ Date.prototype.format = function (format) {
     }
   }
   return format;
+}
+
+export const phoneRule = /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/;//11位的电话号码
+export const phoneRule2 = /(^(\d{3,4}-)?\d{7,8})$|((^(\d{3,4})?\d{7,8})$)|(^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$)/;//8位固话+11位的电话号码
+export const phoneRule3 = /(^([0-9]+(-?)[0-9]+)+)$/;//不限位数，只限制数字加-的电话号码 110等电话也可以输入
+export const chinese = /^[\u4E00-\u9FA5]+$/;
+export const number = /(^[1-9]([0-9]+)$)|(^[1-9]?$)/;
+export const number0 = /(^[1-9]([0-9]+)$)|(^(0){1}$)|(^[1-9]?$)/;
+export const price = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/;
+export const areaRule = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^[0-9]\.[0-9]([0-9])?$)/;
+export const email = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+export const bankCode = /^([1-9]{1})(\d{14}|\d{18})$/;
+export const numberCode = /^(\w)+$/;
+export const noChinese = /[^\u4E00-\u9FA5]+$/g;
+export const contractCode = /^[\w\-_]+$/;
+
+export const SHACrypto = function (str) {
+  return crypto.SHA1(str).toString()
 }

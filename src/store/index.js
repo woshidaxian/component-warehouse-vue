@@ -8,7 +8,8 @@ export default new Vuex.Store({
     searchKey: '',
     isLogin: false,
     token: '',
-    userAccount: 'HWG'
+    userAccount: 'HWG',
+    userId: ''
   },
   mutations: {
   },

@@ -10,10 +10,13 @@
       <input type="password" v-model="password" name="" value="" class="inp">
     </div>
     <div class="login-btn" @click="login">Login</div>
+    <i class="el-icon-circle-close close-btn" @click="cancel"></i>
   </div>
 </template>
 
 <script>
+import * as getData from './../api/server'
+import * as utils from './../config/utils'
 export default {
   name: '',
   components: {},
@@ -24,7 +27,9 @@ export default {
     }
   },
 
-  mounted() {},
+  mounted() {
+    document.body.style.overflow = 'hidden'
+  },
 
   methods: {
     login(){
@@ -36,6 +41,29 @@ export default {
         this.$message.warning('密码不能为空！')
         return
       }
+      getData.login({
+        account: this.account,
+        password: utils.SHACrypto(this.password)
+      }).then(res =>{
+        if(res.data.code == 1){
+          this.$message.success('登录成功')
+          this.$store.state.userId = res.data.data.userId
+          this.$store.state.token = res.data.data.token
+          this.$store.state.userAccount = res.data.data.account
+          sessionStorage.setItem('userId', this.$store.state.userId)
+          sessionStorage.setItem('token', this.$store.state.token)
+          sessionStorage.setItem('userAccount', this.$store.state.userAccount)
+          this.$store.state.isLogin = true
+          setTimeout(() => {
+            this.$emit('close')
+            document.body.style.overflow = 'auto'
+          }, 500);
+        }
+      })
+    },
+    cancel(){
+      this.$emit('close')
+      document.body.style.overflow = 'auto'
     }
   }
 }
@@ -107,6 +135,14 @@ export default {
       background: #00468b;
     }
   }
+}
+.close-btn{
+  position: absolute;
+  cursor: pointer;
+  font-size: 25px;
+  color: rgb(187, 187, 187);
+  top: 40px;
+  right: 40px;
 }
 @keyframes fadeIn {
   from{

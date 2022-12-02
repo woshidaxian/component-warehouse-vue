@@ -7,8 +7,17 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    redirect: '/index'
+  },
+  {
+    path: '/index',
     name: 'index',
     component: index
+  },
+  {
+    path: '/detail',
+    name: '组件详情',
+    component: () => import('./../views/detail.vue')
   },
   {
     path: '/back',

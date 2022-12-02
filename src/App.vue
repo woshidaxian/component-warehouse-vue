@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <header>
+    <header class="header">
       <div>
         <span class="title">组件仓库-VUE</span>
-        <input type="text" v-model="key" placeholder="输入关键词搜索..." class="inp-search">
-        <el-select v-model="typeId" placeholder="请选择组件类型" size="small" filterable clearable @change="search">
+        <input type="text" v-model="key" placeholder="输入关键词搜索..." class="inp-search" v-if="showSearch">
+        <el-select v-if="showSearch" v-model="typeId" placeholder="请选择组件类型" size="small" filterable clearable @change="search">
           <el-option
             v-for="(item, index) in typeList"
             :key="index"
@@ -12,12 +12,12 @@
             :value="item.id">
           </el-option>
         </el-select>
-        <span class="btn-search" @click="search">搜&nbsp;&nbsp;索</span>
+        <span v-if="showSearch" class="btn-search" @click="search">搜&nbsp;&nbsp;索</span>
       </div>
       <div style="display: flex">
         <div class="btn-subscrible">使用说明</div>
         <div class="login-btn" @click="showLogin=true" v-if="!$store.state.isLogin">登录</div>
-        <div class="register-btn" v-if="!$store.state.isLogin">注册</div>
+        <div class="register-btn" v-if="!$store.state.isLogin" @click="showRegister = true">注册</div>
         <div class="user-info" v-else>
           <i class="el-icon-user"></i>
           <span>{{$store.state.userAccount}}</span>
@@ -36,18 +36,69 @@
       </a>&nbsp;|&nbsp;
       <span class="back-btn" @click="goBack">后台管理</span>
     </footer>
-    <h-login v-if="showLogin"></h-login>
+    <h-login v-if="showLogin" @close="showLogin=false"></h-login>
+    <el-drawer
+      :visible.sync="showRegister"
+      direction="rtl"
+      :wrapperClosable="false"
+      :before-close="handleClose">
+      <div class="register-box">
+        <div class="step-box" v-if="!showNext">
+          <div class="step-title">第一步</div>
+          <div class="step-sub-title">
+            CODE验证
+              <el-tooltip class="item" effect="dark" content="注册请确认您是否拥有4位注册码？可向管理员获取" placement="right">
+                <i class="el-icon-question"></i>
+              </el-tooltip>
+          </div>
+          <input class="inp-code" placeholder="请输入四位注册码" v-model="code">
+          <div class="next-btn" @click="checkCode">下一步</div>
+        </div>
+        <div class="step-box" v-if="showNext">
+          <div class="flex-row-between">
+            <div>
+              <div class="step-title">第二步</div>
+              <div class="step-sub-title">填写注册信息</div>
+            </div>
+            <div class="prev-ben" @click="showNext = false">
+              <i class="el-icon-back"></i>
+            </div>
+          </div>
+          <div class="inp-box" style="margin-top: 40px">
+            <i class="el-icon-user"></i>
+            <input v-model="account" class="inp" placeholder="用于登录的账号">
+          </div>
+          <div class="inp-box">
+            <i class="el-icon-key"></i>
+            <input type="password" v-model="password" name="" value="" class="inp" placeholder="请输入登录密码">
+          </div>
+          <div class="next-btn" @click="register">注 册</div>
+        </div>
+      </div>
+    </el-drawer>
   </div>
 </template>
 <script>
 import * as getData from './api/server'
+import * as utils from './config/utils'
 export default {
   data() {
     return {
       typeList: [],
       typeId: '',
       key: '',
-      showLogin: false
+      showLogin: false,
+      showRegister: false,
+      code: '',
+      showNext: false,
+      account: '',
+      password: '',
+    }
+  },
+  computed: {
+    showSearch(){
+      let path = ['/index']
+      return path.indexOf(this.$route.path) == -1 ? false : true
     }
   },
   mounted() {
@@ -66,14 +117,56 @@ export default {
     },
     search(){
       this.$refs['page'].search(this.typeId, this.key)
+    },
+    handleClose(){
+      this.$confirm('确定要退出注册吗？','提示',{
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(()=>{
+        this.showRegister = false
+        this.code = ''
+        this.showNext = false
+      }).catch(()=>{
+        return
+      })
+    },
+    checkCode(){
+      if(!this.code){
+        this.$message.warning('请输入注册码')
+        return
+      }
+      if(!utils.number.test(this.code)||this.code.length!=4){
+        this.$message.warning('请检查注册码是否是4位数字')
+        return
+      }
+      this.showNext = true
+    },
+    register(){
+      if(this.account&&this.password){
+        getData.register({
+          account: this.account,
+          password: utils.SHACrypto(this.password),
+          inviteCode: this.code
+        }).then(res=>{
+          if(res.data.code === 1){
+            this.$message.success('注册成功')
+            this.showNext = false
+            this.code = ''
+            this.password = ''
+            this.account = ''
+            this.showRegister = false
+          }
+        })
+      }
     }
   },
 }
 </script>
 <style lang="scss">
+@import './assets/css/base';
 html,body{
   height: 100%;
-  overflow: hidden;
 }
 #app {
   -webkit-font-smoothing: antialiased;
@@ -83,7 +176,6 @@ html,body{
   width: 100%;
   min-height: 100%;
   background: rgb(236, 236, 236);
-  overflow: hidden;
 }
 
 #nav {
@@ -102,7 +194,7 @@ html,body{
   padding: 0;
   margin: 0;
 }
-header{
+.header{
   width: calc(100% - 30px);
   padding: 0 15px;
   height: 55px;
@@ -210,5 +302,98 @@ footer{
 .back-btn{
   cursor: pointer;
   text-decoration: underline;
+}
+.flex-row-between{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.register-box{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 80px;
+  .step-box{
+    width: 70%;
+  }
+  .step-title{
+    font-size: 24px;
+    font-weight: bold;
+    text-align: left;
+  }
+  .step-sub-title{
+    text-align: left;
+    margin-top: 15px;
+    font-size: 15px;
+  }
+  .inp-code{
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    outline: none;
+    margin-top: 50px;
+    text-indent: 15px;
+    font-size: 16px;
+    &::placeholder{
+      color: rgb(90, 90, 90);
+    }
+  }
+  .prev-ben{
+    width: 80px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    background: #005bb6;
+    border-radius: 23px;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  .next-btn{
+    width: 100%;
+    height: 40px;
+    background: #00458b;
+    border-radius: 20px;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
+    font-size: 15px;
+    margin-top: 30px;
+    cursor: pointer;
+    &:hover{
+      background: #005bb6;
+    }
+  }
+  .inp-box{
+    width: 88%;
+    height: 46px;
+    margin-bottom: 20px;
+    border-radius: 23px;
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    border: 1px solid rgb(16, 122, 172);
+    i{
+      font-size: 18px;
+      font-weight: bold;
+      color: rgb(16, 122, 172);
+    }
+  }
+  .inp{
+    margin-left: 10px;
+    flex: 1;
+    height: 40px;
+    outline: none;
+    border: none;
+    background: none;
+    color: rgb(0, 0, 0);
+    font-size: 15px;
+  }
 }
 </style>
