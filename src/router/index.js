@@ -22,9 +22,10 @@ const routes = [
   {
     path: '/back',
     name: '后台管理',
+    component: () => import('./../views/back.vue'),
     children: [
       {
-        path: '/back/users',
+        path: '/back/user',
         name: '用户管理',
         component: () => import('./../views/back/user.vue')
       },
@@ -32,6 +33,21 @@ const routes = [
         path: '/back/component',
         name: '组件管理',
         component: () => import('./../views/back/component.vue')
+      },
+      {
+        path: '/back/log',
+        name: '操作日志',
+        component: () => import('./../views/back/log.vue')
+      },
+      {
+        path: '/back/type',
+        name: '组件类型',
+        component: () => import('./../views/back/type.vue')
+      },
+      {
+        path: '/back/code',
+        name: '注册码管理',
+        component: () => import('./../views/back/invite.vue')
       }
     ],
     redirect: '/back/component'

@@ -30,7 +30,9 @@ service.interceptors.response.use(
       } else if (code === 0) {
         Message.warning(JSON.stringify(message))
         sessionStorage.clear()
-        location.href = location.origin
+        setTimeout(()=>{
+          location.href = location.origin
+        }, 500)
         store.state.isLogin = false
         store.state.userId = null
         store.state.userAccount = null
@@ -55,6 +57,9 @@ export const register = (data) => service.post('/api/user/register', JSON.string
 // 账号登录
 export const login = (data) => service.post('/api/user/login', JSON.stringify(data))
 
+// 校验是否管理员
+export const checkUser = () => service.post('/api/user/checkUser')
+
 // 组件类型列表
 export const typeList = (params) => service.get('/api/component/typeList', {params: params})
 
@@ -66,3 +71,36 @@ export const getComponentDetail = (params) => service.get('/api/component/detail
 
 // 获取组件下载地址
 export const downUrl = (params) => service.get('/api/component/download', {params: params})
+
+// 操作日志列表
+export const logList = (params) => service.get('/api/log/list', {params:params})
+
+// 操作日志删除
+export const delLog = (data) => service.post('/api/log/del', JSON.stringify(data))
+
+// 用户列表
+export const userList = (params) => service.get('/api/user/list', {params:params})
+
+// 用户删除
+export const userDel = (data) => service.post('/api/user/del', JSON.stringify(data))
+
+// 改变用户状态
+export const changeUser = (data) => service.post('/api/user/change', JSON.stringify(data))
+
+// 注册码列表
+export const codeList = (params) => service.get('/api/invite/list', {params:params})
+
+// 新增注册码
+export const buildCode = (data) => service.post('/api/invite/build', JSON.stringify(data))
+
+// 删除邀请码
+export const delCode = (data) => service.post('/api/invite/del', JSON.stringify(data))
+
+// 添加组件类型
+export const addType = (data) => service.post('/api/component/addType', JSON.stringify(data))
+
+// 组件类型名重复校验
+export const checkTypeName = (data) => service.post('/api/component/typeCheck', JSON.stringify(data))
+
+// 类型标签重命名
+export const resetTypeName = (data) => service.post('/api/component/resetType', JSON.stringify(data))

@@ -29,7 +29,7 @@
     <footer>
       版权所有All Rights Reserved http://component.wghuang.fun&nbsp;|&nbsp;
       <a href="https://beian.miit.gov.cn/" target="blank">
-        浙ICP备2021016384号-3
+        浙ICP备2021016384号-2
       </a>&nbsp;|&nbsp;
       <a href="http://find.wghuang.fun" target="blank">
         搜分支
@@ -106,7 +106,20 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.push('/back')
+      if(this.$route.path.indexOf('back')!=-1) return
+      if(!this.$store.state.isLogin){
+        this.$message.info('请先登录!')
+        return
+      }
+      getData.checkUser().then(res=>{
+        if(res.data.code === 1){
+          if(res.data.data){
+            this.$router.push('/back')
+          }else{
+            this.$message.warning('权限不足')
+          }
+        }
+      })
     },
     getTypeList(){
       getData.typeList({pageSize: 100}).then(res=>{
@@ -301,7 +314,7 @@ footer{
 }
 .back-btn{
   cursor: pointer;
-  text-decoration: underline;
+  color: #005bb699;
 }
 .flex-row-between{
   display: flex;

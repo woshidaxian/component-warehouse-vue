@@ -1,15 +1,8 @@
 <template>
   <div class="main-box">
     <div class="head flex-row-between">
-      <div class="search-box">
-        <el-input size="small" v-model="filters.userName" placeholder="姓名" style="margin-right: 10px"></el-input>
-        <el-select size="small" v-model="filters.useState" placeholder="使用状态" clearable @change="search">
-          <el-option label="已使用" :value="1"></el-option>
-          <el-option label="未使用" :value="0"></el-option>
-        </el-select>
-        <el-button type="primary" size="small" style="margin-left: 10px" plain @click="search">搜索</el-button>
-      </div>
-      <el-button type="primary" size="small" @click="showAdd = true">新增注册码</el-button>
+      <div class="search-box"></div>
+      <el-button type="primary" size="small" @click="showAdd = true">新增组件类型</el-button>
     </div>
     <div class="table-box">
       <el-table :data="list" border stripe height="100%" size="small">
@@ -18,21 +11,15 @@
           <span v-if="!isLoading">暂无数据</span>
         </template>
         <el-table-column label="ID" prop="id" width="50px"></el-table-column>
-        <el-table-column label="注册码" prop="code" width="250px" show-overflow-tooltip></el-table-column>
-        <el-table-column label="姓名" prop="userName" show-overflow-tooltip></el-table-column>
-        <el-table-column label="有效时间" width="160px" prop="validTime" show-overflow-tooltip>
+        <el-table-column label="类型名称" prop="typeName" show-overflow-tooltip></el-table-column>
+        <el-table-column label="创建时间" prop="id" show-overflow-tooltip>
           <template slot-scope="scope">
-            {{new Date(scope.row.validTime).format('yyyy-MM-dd hh:mm:ss')}}
-          </template>
-        </el-table-column>
-        <el-table-column label="是否使用" prop="isUse" show-overflow-tooltip>
-          <template slot-scope="scope">
-            {{scope.row.isUse?'已使用':'未使用'}}
+            {{new Date(scope.row.created_at).format('yyyy-MM-dd hh:mm:ss')}}
           </template>
         </el-table-column>
         <el-table-column label="操作" width="300px" align="center">
           <template slot-scope="scope">
-            <el-button size="mini" type="danger" @click="del(scope.row.id, scope.row.code)">删除</el-button>
+            <el-button size="mini" type="primary">重命名{{scope.row.id}}</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -48,8 +35,9 @@
       </el-pagination>
       
     </div>
-    <el-dialog :visible.sync="showAdd" title="新增注册码" width="500px" :close-on-click-modal="false">
-      <h-add-code v-if="showAdd" @close="showAdd = false" @init="getList(), showAdd = false"></h-add-code>
+
+    <el-dialog :visible.sync="showAdd" :close-on-click-modal="false" title="新增组件类型" width="500px">
+      <h-add-type v-if="showAdd" @close="showAdd = false" @init="search(), showAdd = false"></h-add-type>
     </el-dialog>
   </div>
 </template>
@@ -65,12 +53,10 @@ export default {
       filters: {
         pageIndex: 1,
         pageSize: 10,
-        userName: '',
-        useState: '',
         total: 100
       },
-      isLoading: false,
-      showAdd: false
+      showAdd: false,
+      isLoading: false
     }
   },
 
@@ -81,7 +67,7 @@ export default {
   methods: {
     getList(){
       this.isLoading = true
-      getData.codeList(this.filters).then(res=>{
+      getData.typeList().then(res=>{
         this.isLoading = false
         if(res.data.code === 1){
           this.list = res.data.data.list
@@ -91,7 +77,6 @@ export default {
     },
     sizeChange(val){
       this.filters.pageSize = val
-      this.filters.pageIndex = 1
       this.search()
     },
     currentChange(val){
@@ -101,22 +86,6 @@ export default {
     search(){
       this.filters.pageIndex = 1
       this.getList()
-    },
-    del(id, code){
-      this.$confirm('确认要删除该条记录吗？', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(()=>{
-        getData.delCode({ids: `${id}`, code: code}).then(res=>{
-          if(res.data.code === 1){
-            this.$message.success('操作成功')
-            this.getList()
-          }
-        })
-      }).catch(()=>{
-        this.$message.info('操作取消')
-      })
     }
   }
 }
