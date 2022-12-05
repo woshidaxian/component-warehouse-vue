@@ -76,7 +76,7 @@ export default {
   height: 100%;
   top: 0;
   left: 0;
-  z-index: 999;
+  z-index: 99999;
   background: rgba(0, 0, 0, 0.8);
   display: flex;
   flex-direction: column;

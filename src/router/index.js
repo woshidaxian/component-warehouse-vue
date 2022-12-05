@@ -20,6 +20,11 @@ const routes = [
     component: () => import('./../views/detail.vue')
   },
   {
+    path: '/add',
+    name: '新增组件',
+    component: () => import('./../views/add.vue')
+  },
+  {
     path: '/back',
     name: '后台管理',
     component: () => import('./../views/back.vue'),

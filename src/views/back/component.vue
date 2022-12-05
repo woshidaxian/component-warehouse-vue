@@ -2,11 +2,26 @@
   <div class="main-box">
     <div class="head flex-row-between">
       <div class="search-box">
-        <el-input size="small" v-model="filters.keyWord" style="margin-right: 10px"></el-input>
-        <el-select size="small" v-model="filters.type"></el-select>
-        <el-button type="primary" size="small" style="margin-left: 10px" plain>搜索</el-button>
+        <el-input size="small" placeholder="名称关键词" v-model="filters.keyWord" style="margin-right: 10px;width: 200px"></el-input>
+        <el-select size="small" placeholder="组件类型" v-model="filters.type" @change="search" clearable>
+          <el-option
+            v-for="(item, index) in typeList"
+            :key="index"
+            :label="item.typeName"
+            :value="item.id">
+          </el-option>
+        </el-select>
+        <el-select size="small" v-model="filters.state" style="margin-left: 10px" placeholder="组件状态" @change="search" clearable>
+          <el-option
+            v-for="(item, index) in stateOptions"
+            :key="index"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+        <el-button type="primary" size="small" style="margin-left: 10px" plain @click="search">搜索</el-button>
       </div>
-      <el-button type="primary" size="small">新增组件</el-button>
+      <el-button type="primary" size="small" @click="$router.push('/add')">新增组件</el-button>
     </div>
     <div class="table-box">
       <el-table :data="list" border stripe height="100%" size="small">
@@ -47,40 +62,53 @@
 </template>
 
 <script>
+import * as getData from './../../api/server'
 export default {
   name: '',
   components: {},
   data () {
     return {
-      list: [
-        { id: 1 },
-        { id: 1 },
-        { id: 1 },
-        { id: 1 },
-        { id: 1 },
-        { id: 1 },
-        { id: 1 },
-        { id: 1 },
-        { id: 1 },
-        { id: 1 },
-        { id: 1 },
-        { id: 2 }
-      ],
+      list: [],
       filters: {
         pageIndex: 1,
         pageSize: 10,
         keyWord: '',
-        total: 100
+        total: 100,
+        state: ''
       },
-      isLoading: false
+      stateOptions: [
+        { label: '已上线', value: 1 },
+        { label: '待通过', value: 2 },
+        { label: '已驳回', value: 3 },
+        { label: '未使用', value: 4 },
+      ],
+      isLoading: false,
+      typeList: []
     }
   },
 
-  mounted() {},
+  mounted() {
+    this.getList()
+    this.getTypeList()
+  },
 
   methods: {
     getList(){
-      
+      this.isLoading = true;
+      getData.getComponentList(this.filters).then(res=>{
+        this.isLoading = false;
+        if(res.data.code === 1){
+          this.list = res.data.data.list
+          this.filters.total = res.data.data.total
+        }
+      })
+    },
+    getTypeList(){
+      getData.typeList({pageSize: 100}).then(res=>{
+        if(res.data.code == 1){
+          this.typeList = res.data.data.list
+        }
+      })
     },
     sizeChange(val){
       this.filters.pageSize = val
@@ -94,6 +122,18 @@ export default {
     search(){
       this.filters.pageIndex = 1
       this.getList()
+    }
+  },
+  filters: {
+    state(val){
+      switch (val) {
+        // 1-已上线;2-待通过;3-驳回;4-未使用
+        case 1: return '已上线';
+        case 2: return '待通过';
+        case 3: return '已驳回';
+        case 4: return '未使用';
+        default: return '-'
+      }
     }
   }
 }

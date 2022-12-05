@@ -19,7 +19,7 @@
         </el-table-column>
         <el-table-column label="操作" width="300px" align="center">
           <template slot-scope="scope">
-            <el-button size="mini" type="primary">重命名{{scope.row.id}}</el-button>
+            <el-button size="mini" type="primary" plain @click="resetName(scope.row)">重命名</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -39,6 +39,10 @@
     <el-dialog :visible.sync="showAdd" :close-on-click-modal="false" title="新增组件类型" width="500px">
       <h-add-type v-if="showAdd" @close="showAdd = false" @init="search(), showAdd = false"></h-add-type>
     </el-dialog>
+
+    <el-dialog :visible.sync="showReset" :close-on-click-modal="false" title="组件类型重命名" width="500px">
+      <h-reset-type v-if="showReset" @close="showReset = false" @init="getList(), showReset = false" :typeInfo="activeInfo"></h-reset-type>
+    </el-dialog>
   </div>
 </template>
 
@@ -56,7 +60,12 @@ export default {
         total: 100
       },
       showAdd: false,
-      isLoading: false
+      isLoading: false,
+      showReset: false,
+      activeInfo: {
+        id: null,
+        typeName: ''
+      }
     }
   },
 
@@ -86,6 +95,13 @@ export default {
     search(){
       this.filters.pageIndex = 1
       this.getList()
+    },
+    resetName(row){
+      this.showReset = true
+      this.activeInfo = {
+        id: row.id,
+        typeName: row.typeName
+      }
     }
   }
 }

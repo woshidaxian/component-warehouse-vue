@@ -217,7 +217,7 @@ html,body{
   justify-content: space-between;
   align-items: center;
   position: fixed;
-  z-index: 999;
+  z-index: 9999;
   .title{
     font-size: 15px;
     color: #fff;
@@ -307,6 +307,7 @@ footer{
   color: #8f8f8f;
   font-size: 12px;
   background: rgb(236, 236, 236);
+  z-index: 9999;
   a{
     text-decoration: none;
     color: #005bb699;
