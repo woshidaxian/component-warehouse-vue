@@ -31,11 +31,19 @@
         </template>
         <el-table-column label="ID" prop="id" width="50px"></el-table-column>
         <el-table-column label="名称" prop="name" width="250px" show-overflow-tooltip></el-table-column>
-        <el-table-column label="著作人" prop="id" show-overflow-tooltip></el-table-column>
-        <el-table-column label="收录时间" prop="id" width="160px" show-overflow-tooltip></el-table-column>
-        <el-table-column label="下载量" prop="id"></el-table-column>
-        <el-table-column label="类型" prop="id"></el-table-column>
-        <el-table-column label="状态" prop="id" align="center"></el-table-column>
+        <el-table-column label="著作人" prop="realName" show-overflow-tooltip></el-table-column>
+        <el-table-column label="收录时间" prop="created_at" width="160px" show-overflow-tooltip>
+          <template slot-scope="scope">
+            {{new Date(scope.row.created_at).format('yyyy-MM-dd hh:mm:ss')}}
+          </template>
+        </el-table-column>
+        <el-table-column label="下载量" prop="downloadNum"></el-table-column>
+        <el-table-column label="类型" prop="typeName"></el-table-column>
+        <el-table-column label="状态" prop="state" align="center">
+          <template slot-scope="scope">
+            {{scope.row.state|state}}
+          </template>
+        </el-table-column>
         <el-table-column label="操作" width="300px" align="center">
           <template slot-scope="scope">
             <el-button size="mini" type="primary">编辑{{scope.row.id}}</el-button>

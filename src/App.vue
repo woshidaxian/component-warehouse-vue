@@ -2,7 +2,7 @@
   <div id="app">
     <header class="header">
       <div>
-        <span class="title">组件仓库-VUE</span>
+        <span class="title" @click="$router.push('/')">组件仓库-VUE</span>
         <input type="text" v-model="key" placeholder="输入关键词搜索..." class="inp-search" v-if="showSearch">
         <el-select v-if="showSearch" v-model="typeId" placeholder="请选择组件类型" size="small" filterable clearable @change="search">
           <el-option
@@ -217,11 +217,12 @@ html,body{
   justify-content: space-between;
   align-items: center;
   position: fixed;
-  z-index: 9999;
+  z-index: 999;
   .title{
     font-size: 15px;
     color: #fff;
     font-weight: bold;
+    cursor: pointer;
   }
   .inp-search{
     width: 300px;
@@ -307,7 +308,7 @@ footer{
   color: #8f8f8f;
   font-size: 12px;
   background: rgb(236, 236, 236);
-  z-index: 9999;
+  z-index: 999;
   a{
     text-decoration: none;
     color: #005bb699;

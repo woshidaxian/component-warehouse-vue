@@ -104,3 +104,9 @@ export const checkTypeName = (data) => service.post('/api/component/typeCheck', 
 
 // 类型标签重命名
 export const resetTypeName = (data) => service.post('/api/component/resetType', JSON.stringify(data))
+
+// 获取上传文件的token
+export const getToken = () => service.get('/api/component/oss')
+
+// 添加组件
+export const addComponent = (data) => service.post('/api/component/add', JSON.stringify(data))

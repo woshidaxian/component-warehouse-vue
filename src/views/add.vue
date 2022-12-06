@@ -16,11 +16,11 @@
             :show-file-list="false"
             :before-upload="beforeAvatarUpload"
           >
-            <img v-if="form.img" :src="form.img" class="avatar">
+            <img v-if="form.img" :src="form.img" class="avatar" style="width: 100%; height: 100%">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
           <div class="img-demo-tip">
-            注：仅支持jpg/png格式，且不能大于2M
+            注：仅支持jpg/png/gif格式，且不能大于2M
           </div>
         </el-form-item>
         <el-form-item prop="componentName" label="源文件：">
@@ -34,7 +34,7 @@
             <el-button size="small" v-else type="primary">点击上传</el-button>
           </el-upload>
           <div class="img-demo-tip">
-            <p>注：1、仅支持*.js/*.vue/*.scss/*.css/*.html，且不能大于2M</p>
+            <p>注：1、文件不能大于2M</p>
             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、文件内不要包含静态文件，如有其它依赖请在使用方法中说明</p>
           </div>
         </el-form-item>
@@ -71,6 +71,7 @@
 
 <script>
 import * as getData from './../api/server'
+import { upFile } from './../config/utils'
 export default {
   name: '',
   components: {},
@@ -109,20 +110,37 @@ export default {
   },
 
   methods: {
+    // 上传图样
     beforeAvatarUpload(file){
-      const isImg = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg';
+      const that = this
+      const isImg = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg' || file.type === 'image/gif';
       const isLt2M = file.size / 1024 / 1024 < 2;
       if(!isImg){
-        this.$message.warning('仅支持上传jpg/png格式')
+        this.$message.warning('仅支持上传jpg/png/gif格式')
         return false
       }
       if(!isLt2M){
         this.$message.warning('文件大小需小于2M')
         return false
       }
+      upFile(file, o=>{
+        that.form.img = 'http://file.wghuang.fun/' + o.key
+        this.$message.success('上传成功')
+      })
     },
+    // 上传源文件
     beforeFileUpload(file){
-      console.log(file);
+      const that = this
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if(!isLt2M){
+        this.$message.warning('文件大小需小于2M')
+        return false
+      }
+      upFile(file, f=>{
+        that.form.fileUrl = f.key
+        that.form.componentName = file.name
+        this.$message.success('上传成功')
+      })
     },
     getTypeList(){
       getData.typeList({pageSize: 100}).then(res=>{
@@ -138,7 +156,14 @@ export default {
     upForm(){
       this.$refs['form'].validate((valid)=>{
         if(valid){
-          console.log(1);
+          getData.addComponent(this.form).then(res=>{
+            if(res.data.code == 1){
+              this.$message.success('提交成功')
+              setTimeout(() => {
+                this.$router.go(-1)
+              }, 500);
+            }
+          })
         }
       })
     }
@@ -212,5 +237,10 @@ export default {
       line-height: 26px;
     }
   }
+}
+</style>
+<style>
+.v-note-wrapper{
+  z-index: 200;
 }
 </style>

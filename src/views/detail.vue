@@ -34,7 +34,9 @@
         </div>
       </div>
       <div class="detail-use">
-        <mavon-editor style="height: 500px" v-model="detail.useContent" @change="handleMarkDownChange"></mavon-editor>
+        <div class="title">使用方法：</div>
+        <div v-html="detail.useContent"></div>
+        <!-- <mavon-editor style="height: 500px" v-model="detail.useContent" @change="handleMarkDownChange"></mavon-editor> -->
       </div>
     </div>
     <div class="hot-list">
@@ -50,6 +52,7 @@
 import * as getData from './../api/server';
 import { Encryption } from './../config/crypto';
 const AES = new Encryption('AES', {key: 'hwgcomponentdown', iv: '1011110100111010'})
+import download from 'downloadjs'
 export default {
   name: '',
   components: {},
@@ -80,7 +83,7 @@ export default {
     down(){
       getData.downUrl({id: this.detail.id}).then(res=>{
         if(res.data.code == 1){
-          window.open(AES.deCrypto(res.data.data))
+          download(AES.deCrypto(res.data.data))
         }
       })
     },
@@ -123,10 +126,19 @@ export default {
       text-align: left;
     }
     .detail-use{
-      width: 100%;
-      min-height: 800px;
+      width: calc(100% - 80px);
+      min-height: 200px;
       background: #fff;
       margin-top: 20px;
+      text-align: left;
+      padding: 40px;
+      .title{
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgb(223, 223, 223);
+      }
     }
     .detail-name{
       padding: 0 20px;

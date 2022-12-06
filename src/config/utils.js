@@ -1,5 +1,7 @@
 import crypto from 'crypto-js'
-
+import * as qiniu from 'qiniu-js'
+import * as getData from './../api/server'
+import { Message } from 'element-ui'
 Date.prototype.format = function (format) {
   var o = {
     "M+": this.getMonth() + 1,  //month
@@ -23,6 +25,31 @@ Date.prototype.format = function (format) {
     }
   }
   return format;
+}
+
+export const upFile = async function (file, callback) {
+  const key = file.name
+  let token = null
+  const putExtra = {}
+  const config = {
+    region: qiniu.region.z0
+  }
+  const observer = {
+    error(err){
+      Message.error(err)
+    },
+    complete(res){
+      callback(res)
+    }
+  }
+  const res = await getData.getToken()
+  if(res.data.code == 1){
+    token = res.data.data
+  }else{
+    throw new Error("获取token失败")
+  }
+  const observable = qiniu.upload(file, key, token, putExtra, config)
+  observable.subscribe(observer)
 }
 
 export const phoneRule = /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/;//11位的电话号码
