@@ -21,7 +21,7 @@
         <div class="user-info" v-else>
           <i class="el-icon-user"></i>
           <span>{{$store.state.userAccount}}</span>
-          <div>个人中心</div>
+          <div @click="$router.push('/personal')">个人中心</div>
         </div>
       </div>
     </header>

@@ -41,16 +41,18 @@
         <el-table-column label="类型" prop="typeName"></el-table-column>
         <el-table-column label="状态" prop="state" align="center">
           <template slot-scope="scope">
-            {{scope.row.state|state}}
+            <span :style="getColor(scope.row.state)">{{scope.row.state|state}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="300px" align="center">
+        <el-table-column label="操作" width="380px" align="center">
           <template slot-scope="scope">
-            <el-button size="mini" type="primary">编辑{{scope.row.id}}</el-button>
-            <el-button size="mini" type="danger">删除</el-button>
-            <!-- <el-button size="mini" type="danger">通过</el-button> -->
-            <!-- <el-button size="mini" type="danger">驳回</el-button> -->
-            <!-- <el-button size="mini" type="danger">暂停使用</el-button> -->
+            <el-button size="mini" type="success" @click="$router.push(`/detail?id=${scope.row.id}`)">查看</el-button>
+            <el-button size="mini" type="primary">编辑</el-button>
+            <el-button size="mini" type="danger" @click="del(scope.row.id)">删除</el-button>
+            <el-button size="mini" type="danger" plain v-if="scope.row.state == 1" @click="changeState(scope.row.id, 4)">暂停使用</el-button>
+            <el-button size="mini" type="success" plain v-if="scope.row.state == 4" @click="changeState(scope.row.id, 1)">恢复使用</el-button>
+            <el-button size="mini" type="primary" plain v-if="scope.row.state == 2" @click="changeState(scope.row.id, 1)">通过</el-button>
+            <el-button size="mini" type="warning" plain v-if="scope.row.state == 2" @click="changeState(scope.row.id, 3)">驳回</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -101,6 +103,17 @@ export default {
   },
 
   methods: {
+    getColor(s){
+      if(s == 1){
+        return 'color: green'
+      }else if(s == 2){
+        return 'color: orange'
+      }else if(s == 3){
+        return 'color: red'
+      }else if(s == 4){
+        return 'color: black'
+      }
+    },
     getList(){
       this.isLoading = true;
       getData.getComponentList(this.filters).then(res=>{
@@ -130,6 +143,38 @@ export default {
     search(){
       this.filters.pageIndex = 1
       this.getList()
+    },
+    del(id){
+      this.$confirm('确定要删除该组件吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(()=>{
+        getData.delComponenet({ids: `${id}`}).then(res=>{
+          if(res.data.code === 1){
+            this.$message.success('删除成功')
+            this.getList()
+          }
+        })
+      }).catch(()=>{
+        this.$message.info('操作取消')
+      })
+    },
+    changeState(id, state){
+      this.$confirm('是否确认继续操作', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(()=>{
+        getData.changeComponentState({id: id, state: state}).then(res=>{
+          if(res.data.code == 1){
+            this.$message.success('操作成功')
+            this.getList()
+          }
+        })
+      }).catch(()=>{
+        this.$message.info('操作取消')
+      })
     }
   },
   filters: {

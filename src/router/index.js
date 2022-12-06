@@ -56,6 +56,19 @@ const routes = [
       }
     ],
     redirect: '/back/component'
+  },
+  {
+    path: '/personal',
+    name: '个人中心',
+    component: () => import('./../views/personalCenter.vue'),
+    children: [
+      {
+        path: '/personal/list',
+        name: '我的组件',
+        component: () => import('./../views/center/list.vue')
+      }
+    ],
+    redirect: '/personal/list'
   }
 ]
 

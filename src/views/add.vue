@@ -231,16 +231,14 @@ export default {
     height: 800px;
     background: #fff;
     margin-top: 20px;
+    &>div{
+      z-index: 100;
+    }
   }
   .tips{
     p{
       line-height: 26px;
     }
   }
-}
-</style>
-<style>
-.v-note-wrapper{
-  z-index: 200;
 }
 </style>

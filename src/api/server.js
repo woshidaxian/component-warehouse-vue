@@ -110,3 +110,9 @@ export const getToken = () => service.get('/api/component/oss')
 
 // 添加组件
 export const addComponent = (data) => service.post('/api/component/add', JSON.stringify(data))
+
+// 组件删除
+export const delComponenet = (data) => service.post('/api/component/del', JSON.stringify(data))
+
+// 改变组件状态
+export const changeComponentState = (data) => service.post('/api/component/changeState', JSON.stringify(data))

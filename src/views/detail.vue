@@ -84,6 +84,7 @@ export default {
       getData.downUrl({id: this.detail.id}).then(res=>{
         if(res.data.code == 1){
           download(AES.deCrypto(res.data.data))
+          this.detail.downloadNum ++
         }
       })
     },
@@ -132,6 +133,9 @@ export default {
       margin-top: 20px;
       text-align: left;
       padding: 40px;
+      &>div{
+        z-index: 100;
+      }
       .title{
         font-size: 18px;
         font-weight: bold;
