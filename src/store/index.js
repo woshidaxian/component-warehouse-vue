@@ -12,6 +12,12 @@ export default new Vuex.Store({
     userId: ''
   },
   mutations: {
+    loginOut(){
+      this.state.token = null
+      this.state.userAccount = ''
+      this.state.userId = ''
+      this.state.isLogin = false
+    }
   },
   actions: {
   },

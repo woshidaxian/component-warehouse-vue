@@ -116,3 +116,6 @@ export const delComponenet = (data) => service.post('/api/component/del', JSON.s
 
 // 改变组件状态
 export const changeComponentState = (data) => service.post('/api/component/changeState', JSON.stringify(data))
+
+// 组件更新
+export const updateComponent = (data) => service.post('/api/component/update', JSON.stringify(data))

@@ -9,7 +9,7 @@
         <div class="account">{{$store.state.userAccount}}</div>
         <div class="btn-box">
           <el-button type="primary" size="small" style="width: 240px" @click="dataBlock">数据看板</el-button><br/><br/>
-          <el-button size="small" style="width: 240px">退出登录</el-button>
+          <el-button size="small" style="width: 240px" @click="loginOut">退出登录</el-button>
         </div>
       </div>
       <div class="left-bottom">
@@ -74,6 +74,14 @@ export default {
     },
     goBack(){
       this.$router.push('/')
+    },
+    loginOut(){
+      this.$store.commit('loginOut')
+      sessionStorage.clear()
+      this.$message.success('退出成功')
+      setTimeout(()=>{
+        this.goBack()
+      }, 300)
     }
   },
 

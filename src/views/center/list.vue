@@ -116,7 +116,7 @@ export default {
       getData.getComponentList(this.filters).then(res=>{
         this.isLoading = false
         if(res.data.code === 1){
-          this.list = [...res.data.data.list,...res.data.data.list,...res.data.data.list,...res.data.data.list,...res.data.data.list,...res.data.data.list,...res.data.data.list]
+          this.list = res.data.data.list
           this.filters.total = res.data.data.total
         }
       })
@@ -231,6 +231,7 @@ export default {
           height: 130px;
           background: rgb(245, 245, 245);
           transition: all .5s;
+          object-fit: contain;
         }
       }
       .detail-2{

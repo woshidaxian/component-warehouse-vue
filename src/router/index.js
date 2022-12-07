@@ -69,6 +69,11 @@ const routes = [
       }
     ],
     redirect: '/personal/list'
+  },
+  {
+    path: '/edit',
+    name: '编辑组件',
+    component: () => import('./../views/edit.vue')
   }
 ]
 

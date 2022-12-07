@@ -35,8 +35,8 @@
       </div>
       <div class="detail-use">
         <div class="title">使用方法：</div>
-        <div v-html="detail.useContent"></div>
-        <!-- <mavon-editor style="height: 500px" v-model="detail.useContent" @change="handleMarkDownChange"></mavon-editor> -->
+        <!-- <div v-html="detail.useContent"></div> -->
+        <mavon-editor style="height: 500px" :subfield="false" :toolbarsFlag="false" :editable="false" :defaultOpen="'preview'" v-model="detail.useContent" @change="handleMarkDownChange"></mavon-editor>
       </div>
     </div>
     <div class="hot-list">

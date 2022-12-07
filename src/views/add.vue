@@ -35,7 +35,8 @@
           </el-upload>
           <div class="img-demo-tip">
             <p>注：1、文件不能大于2M</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、文件内不要包含静态文件，如有其它依赖请在使用方法中说明</p>
+            <p>2、文件内不要包含静态文件，如有其它依赖请在使用方法中说明</p>
+            <p>3、其它可能影响本组件正常运行的全局class、变量等</p>
           </div>
         </el-form-item>
         <el-form-item prop="type" label="组件类型：" style="text-align: left">
@@ -58,12 +59,12 @@
     </div>
     <div class="title">使用方法：</div>
     <div class="use-box">
-      <mavon-editor style="height: 600px" v-model="useContent" @change="handleMarkDownChange"></mavon-editor>
+      <mavon-editor style="height: 600px" v-model="form.useContent"></mavon-editor>
       <div class="tips" style="text-align:left; margin-top: 20px;padding-left: 20px">
         <p>注：1、请在使用方法中说明组件的详细使用方法</p>
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、组件上传后还可通过个人中心-我的组件进入到编辑页</p>
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3、使用方法的编辑器支持MarkDown语法</p>
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4、不具有详细使用说明的组件将被设置为仅提交人可见（通过个人中心-我的组件）</p>
+        <p>2、组件上传后还可通过个人中心-我的组件进入到编辑页</p>
+        <p>3、使用方法的编辑器支持MarkDown语法</p>
+        <p>4、不具有详细使用说明的组件将被设置为仅提交人可见（通过个人中心-我的组件）</p>
       </div>
     </div>
   </div>
@@ -150,9 +151,9 @@ export default {
       })
     },
     // eslint-disable-next-line no-unused-vars
-    handleMarkDownChange(v, r){
-      this.form.useContent = r
-    },
+    // handleMarkDownChange(v, r){
+    //   this.form.useContent = r
+    // },
     upForm(){
       this.$refs['form'].validate((valid)=>{
         if(valid){
@@ -185,7 +186,6 @@ export default {
   .form-box{
     background: #fff;
     width: 100%;
-    height: 500px;
     padding-top: 20px;
   }
   .avatar-uploader{
