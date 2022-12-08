@@ -46,6 +46,7 @@ export default {
     return {
       navList: [
         { icon: 'el-icon-s-fold', path: '/personal/list', name: '我的组件', disable: false },
+        { icon: 'el-icon-star-on', path: '/personal/like', name: '我的收藏', disable: true },
         { icon: 'el-icon-chat-line-round', path: '/personal/message',name: '我的消息', disable: true },
         { icon: 'el-icon-s-tools', path: '/personal/info',name: '个人信息', disable: true },
       ],
