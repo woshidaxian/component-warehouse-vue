@@ -46,13 +46,13 @@
         </el-table-column>
         <el-table-column label="操作" width="380px" align="center">
           <template slot-scope="scope">
-            <el-button size="mini" type="success" @click="$router.push(`/detail?id=${scope.row.id}`)">查看</el-button>
-            <el-button size="mini" type="primary" @click="$router.push(`/edit?id=${scope.row.id}`)">编辑</el-button>
-            <el-button size="mini" type="danger" @click="del(scope.row.id)">删除</el-button>
+            <el-button size="mini" type="success" @click="$router.push(`/detail?id=${scope.row.id}`)" plain>查看</el-button>
+            <el-button size="mini" type="primary" @click="$router.push(`/edit?id=${scope.row.id}`)" plain>编辑</el-button>
             <el-button size="mini" type="danger" plain v-if="scope.row.state == 1" @click="changeState(scope.row.id, 4)">暂停使用</el-button>
             <el-button size="mini" type="success" plain v-if="scope.row.state == 4" @click="changeState(scope.row.id, 1)">恢复使用</el-button>
             <el-button size="mini" type="primary" plain v-if="scope.row.state == 2" @click="changeState(scope.row.id, 1)">通过</el-button>
             <el-button size="mini" type="warning" plain v-if="scope.row.state == 2" @click="changeState(scope.row.id, 3)">驳回</el-button>
+            <el-button size="mini" type="danger" @click="del(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
