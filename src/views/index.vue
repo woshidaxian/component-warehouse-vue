@@ -17,7 +17,7 @@
           </div>
           <div class="info-box">
             <div class="info-title ellipsis">{{item.name}}</div>
-            <div class="info-author"><span>贡献人：</span>{{item.realName}}</div>
+            <div class="info-author"><span>贡献人：</span>{{item.account}}</div>
             <div class="info-time"><span>收录时间：</span>{{new Date(item.created_at).format('yyyy-MM-dd hh:mm:ss')}}</div>
             <div class="flex-row-between" style="margin-top: 5px;">
               <div class="info-download"><span>下载量：</span>{{item.downloadNum}}次</div>

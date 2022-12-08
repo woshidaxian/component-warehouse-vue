@@ -29,7 +29,7 @@
           <el-button v-if="isLoading" type="text" :loading="true">加载中</el-button>
           <span v-if="!isLoading">暂无数据</span>
         </template>
-        <el-table-column label="ID" prop="id" width="50px"></el-table-column>
+        <!-- <el-table-column label="ID" prop="id" width="50px"></el-table-column> -->
         <el-table-column label="名称" prop="name" width="250px" show-overflow-tooltip></el-table-column>
         <el-table-column label="著作人" prop="realName" show-overflow-tooltip></el-table-column>
         <el-table-column label="收录时间" prop="created_at" width="160px" show-overflow-tooltip>
@@ -38,7 +38,7 @@
           </template>
         </el-table-column>
         <el-table-column label="下载量" prop="downloadNum"></el-table-column>
-        <el-table-column label="类型" prop="typeName"></el-table-column>
+        <el-table-column label="类型" prop="typeName" width="130px" show-overflow-tooltip></el-table-column>
         <el-table-column label="状态" prop="state" align="center">
           <template slot-scope="scope">
             <span :style="getColor(scope.row.state)">{{scope.row.state|state}}</span>
