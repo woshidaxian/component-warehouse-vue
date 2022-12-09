@@ -28,7 +28,7 @@ Date.prototype.format = function (format) {
 }
 
 export const upFile = async function (file, callback) {
-  const key = file.name
+  const key = new Date().getTime() + file.name
   let token = null
   const putExtra = {}
   const config = {
