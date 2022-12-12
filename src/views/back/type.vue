@@ -76,7 +76,7 @@ export default {
   methods: {
     getList(){
       this.isLoading = true
-      getData.typeList().then(res=>{
+      getData.typeList(this.filters).then(res=>{
         this.isLoading = false
         if(res.data.code === 1){
           this.list = res.data.data.list
