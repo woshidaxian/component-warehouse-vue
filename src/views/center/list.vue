@@ -131,11 +131,11 @@ export default {
     sizeChange(val){
       this.filters.pageSize = val
       this.filters.pageIndex = 1
-      this.search()
+      this.getList()
     },
     currentChange(val){
       this.filters.pageIndex = val
-      this.search()
+      this.getList()
     },
     search(){
       this.filters.pageIndex = 1
