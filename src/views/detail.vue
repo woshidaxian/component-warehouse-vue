@@ -104,7 +104,7 @@ export default {
   padding-top: 75px;
   padding-bottom: 60px;
   .detail-left{
-    flex: 1;
+    width: calc(100% - 270px);
     margin-right: 20px;
     .detail-top{
       margin-bottom: 8px;
