@@ -9,7 +9,7 @@
       >
         <div class="list-item" @click="$router.push(`/detail?id=${item.id}`)">
           <div class="info-img">
-            <img v-if="item.img" :src="item.img" alt="">
+            <img v-if="item.img" :src="item.img.replace('file', 'file-proxy')" alt="">
             <img v-else src="./../assets/image/noimg.png" alt="">
             <div class="img-mask">
               <div class="btn-look">查看详情</div>
@@ -152,7 +152,7 @@ export default {
         img{
           width: 100%;
           height: 100%;
-          object-fit: cover;
+          object-fit: contain;
           transition: all .5s;
         }
         &:hover img{
