@@ -79,9 +79,6 @@ export default {
   data () {
     return {
       rules: {
-        img: [
-          { required: true, message: '请上传组件图样', trigger: ['blue', 'change']}
-        ],
         componentName: [
           { required: true, message: '请上传组件源文件', trigger: ['blue', 'change']}
         ],

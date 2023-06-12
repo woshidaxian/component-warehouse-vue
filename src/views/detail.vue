@@ -7,7 +7,7 @@
       </div>
       <div class="flex-row-between">
         <div class="detail-img">
-          <img :src="detail.img" alt="" v-if="detail.img.replace('file', 'file-proxy')">
+          <img :src="detail.img" alt="" v-if="detail.img">
           <img v-else src="./../assets/image/noimg.png" alt="">
         </div>
         <div class="detail-info">
