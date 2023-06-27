@@ -89,7 +89,7 @@ export default {
       })
     },
     handleMarkDownChange(v, r){
-      console.log(v ,r);
+      // console.log(v ,r);
     }
   }
 }
