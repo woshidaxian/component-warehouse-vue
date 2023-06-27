@@ -71,12 +71,12 @@ export default {
 </script>
 <style lang='scss' scoped>
 .mask{
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
-  z-index: 99999;
+  z-index: 999;
   background: rgba(0, 0, 0, 0.8);
   display: flex;
   flex-direction: column;
