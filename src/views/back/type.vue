@@ -12,6 +12,7 @@
         </template>
         <el-table-column label="ID" prop="id" width="50px"></el-table-column>
         <el-table-column label="类型名称" prop="typeName" show-overflow-tooltip></el-table-column>
+        <el-table-column label="排序（请至数据库更改）" prop="orderNo" show-overflow-tooltip></el-table-column>
         <el-table-column label="创建时间" prop="id" show-overflow-tooltip>
           <template slot-scope="scope">
             {{new Date(scope.row.created_at).format('yyyy-MM-dd hh:mm:ss')}}

@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import * as getData from './../api/server';
 export default {
   components: {},
 
@@ -77,12 +78,18 @@ export default {
       this.$router.push('/')
     },
     loginOut(){
-      this.$store.commit('loginOut')
-      sessionStorage.clear()
-      this.$message.success('退出成功')
-      setTimeout(()=>{
-        this.goBack()
-      }, 300)
+      
+      getData.loginOut().then(res=>{
+        if(res.data.code == 1){
+          this.$store.commit('loginOut')
+          sessionStorage.clear()
+          this.$message.success('退出成功')
+          setTimeout(() => {
+            this.goBack()
+          }, 300)
+        }
+      })
+      
     }
   },
 

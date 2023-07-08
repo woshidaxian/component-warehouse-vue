@@ -4,6 +4,9 @@
       <el-form-item label="类型名称：" prop="typeName" style="width: 400px">
         <el-input v-model="form.typeName" placeholder="输入类型名称"></el-input>
       </el-form-item>
+      <el-form-item label="类型排序：" prop="orderNo" style="width: 400px">
+        <el-input v-model="form.orderNo" placeholder="输入类型排序"></el-input>
+      </el-form-item>
     </el-form>
     <div class="btn-box">
       <el-button size="small" @click="$emit('close')">取消</el-button>
@@ -30,7 +33,8 @@ export default {
   data () {
     return {
       form: {
-        typeName: ''
+        typeName: '',
+        orderNo: ''
       },
       rules: {
         typeName: [
@@ -49,7 +53,7 @@ export default {
     saveType(){
       this.$refs['form'].validate((valid)=>{
         if(valid){
-          getData.addType({typeName: this.form.typeName}).then(res=>{
+          getData.addType({typeName: this.form.typeName, orderNo: this.form.orderNo}).then(res=>{
             if(res.data.code == 1){
               this.$message.success('添加成功')
               this.$emit('init')

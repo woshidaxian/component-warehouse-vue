@@ -119,3 +119,6 @@ export const changeComponentState = (data) => service.post('/api/component/chang
 
 // 组件更新
 export const updateComponent = (data) => service.post('/api/component/update', JSON.stringify(data))
+
+// 退出登录
+export const loginOut = () => service.post('/api/user/out')

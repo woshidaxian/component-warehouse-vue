@@ -36,7 +36,8 @@
       <div class="detail-use">
         <div class="title">使用方法：</div>
         <!-- <div v-html="detail.useContent"></div> -->
-        <mavon-editor style="height: 500px" :subfield="false" :toolbarsFlag="false" :editable="false" :defaultOpen="'preview'" v-model="detail.useContent" @change="handleMarkDownChange"></mavon-editor>
+        <mavon-editor v-if="$store.state.isLogin" style="height: 500px" :subfield="false" :toolbarsFlag="false" :editable="false" :defaultOpen="'preview'" v-model="detail.useContent"></mavon-editor>
+        <div v-else>请先登录</div>
       </div>
     </div>
     <div class="hot-list">
@@ -83,14 +84,11 @@ export default {
     down(){
       getData.downUrl({id: this.detail.id}).then(res=>{
         if(res.data.code == 1){
-          download(AES.deCrypto(res.data.data))
+          download(AES.deCrypto(res.data.data), this.detail.componentName)
           this.detail.downloadNum ++
         }
       })
     },
-    handleMarkDownChange(v, r){
-      // console.log(v ,r);
-    }
   }
 }
 
