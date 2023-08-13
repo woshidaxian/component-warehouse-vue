@@ -7,7 +7,7 @@
       </div>
       <div class="flex-row-between">
         <div class="detail-img">
-          <img :src="detail.img" alt="" v-if="detail.img">
+          <img :src="$showImage(detail.img)" alt="" v-if="detail.img">
           <img v-else src="./../assets/image/noimg.png" alt="">
         </div>
         <div class="detail-info">
@@ -81,10 +81,22 @@ export default {
         }
       })
     },
+    async fetchFileAsBlob(url) {
+      try {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        return blob;
+      } catch (error) {
+        this.$message.error('文件下载失败：'+error)
+        return null;
+      }
+    },
     down(){
-      getData.downUrl({id: this.detail.id}).then(res=>{
+      getData.downUrl({id: this.detail.id}).then(async res=>{
         if(res.data.code == 1){
-          download(AES.deCrypto(res.data.data), this.detail.componentName)
+          let url = AES.deCrypto(res.data.data)
+          url = await this.fetchFileAsBlob(this.$showImage(url))
+          download(url, this.detail.componentName)
           this.detail.downloadNum ++
         }
       })
