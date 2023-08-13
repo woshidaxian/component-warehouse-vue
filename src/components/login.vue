@@ -7,7 +7,7 @@
     </div>
     <div class="inp-box">
       <i class="el-icon-key"></i>
-      <input type="password" v-model="password" name="" value="" class="inp">
+      <input type="password" v-model="password" name="" value="" class="inp" @keyup.enter="login">
     </div>
     <div class="login-btn" @click="login">Login</div>
     <i class="el-icon-circle-close close-btn" @click="cancel"></i>

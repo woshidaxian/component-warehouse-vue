@@ -9,7 +9,7 @@
       >
         <div class="list-item" @click="$router.push(`/detail?id=${item.id}`)">
           <div class="info-img">
-            <img v-if="item.img" :src="item.img" alt="">
+            <img v-if="item.img" :src="$showImage(item.img)" alt="">
             <img v-else src="./../assets/image/noimg.png" alt="">
             <div class="img-mask">
               <div class="btn-look">查看详情</div>
@@ -90,6 +90,7 @@ export default {
         }
       })
     },
+    
     handleSizeChange(val){
       this.filters.pageSize = val
       this.getList()

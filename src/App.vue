@@ -27,7 +27,7 @@
     </header>
     <router-view ref="page"/>
     <footer>
-      http://component.wghuang.fun&nbsp;|&nbsp;
+      https://component.wghuang.fun&nbsp;|&nbsp;
       <a href="https://beian.miit.gov.cn/" target="blank">
         浙ICP备2021016384号-2
       </a>&nbsp;|&nbsp;

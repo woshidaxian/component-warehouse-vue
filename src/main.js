@@ -23,6 +23,10 @@ if(token){
   store.state.userId = sessionStorage.getItem('userId')
 }
 
+Vue.prototype.$showImage = function(url){
+  return url.replace('http://file.wghuang.fun', process.env.VUE_APP_FILE_ROOT)
+}
+
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(mavonEditor)

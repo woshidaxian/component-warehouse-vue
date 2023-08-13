@@ -29,7 +29,8 @@
       >
         <div class="detail-1">
           <div :class="`state-label state-label-${item.state}`">{{item.state|state}}</div>
-          <img :src="item.img" alt="">
+          <img v-if="item.img" :src="$showImage(item.img)" alt="">
+          <img v-else src="./../../assets/image/noimg.png" alt="">
           <div style="text-align: left">
             <el-button type="text" icon="el-icon-edit" @click="$router.push(`/edit?id=${item.id}`)">编辑</el-button>
             <el-button type="text" style="color: red" icon="el-icon-delete" @click="del(item.id)">删除</el-button>

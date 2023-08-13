@@ -115,6 +115,7 @@ export default {
       }
     },
     getList(){
+      this.list = []
       this.isLoading = true;
       getData.getComponentList(this.filters).then(res=>{
         this.isLoading = false;
