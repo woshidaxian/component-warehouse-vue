@@ -12,15 +12,15 @@
             <img v-if="item.img" :src="$showImage(item.img)" alt="">
             <img v-else src="./../assets/image/noimg.png" alt="">
             <div class="img-mask">
-              <div class="btn-look">查看详情</div>
+              <div class="btn-look">View Detail</div>
             </div>
           </div>
           <div class="info-box">
             <div class="info-title ellipsis">{{item.name}}</div>
-            <div class="info-author"><span>贡献人：</span>{{item.account}}</div>
-            <div class="info-time"><span>收录时间：</span>{{new Date(item.created_at).format('yyyy-MM-dd hh:mm:ss')}}</div>
+            <div class="info-author"><span>Committer：</span>{{item.account}}</div>
+            <div class="info-time"><span>Collection Time：</span>{{new Date(item.created_at).format('yyyy-MM-dd hh:mm:ss')}}</div>
             <div class="flex-row-between" style="margin-top: 5px;">
-              <div class="info-download"><span>下载量：</span>{{item.downloadNum}}次</div>
+              <div class="info-download"><span>Download：</span>{{item.downloadNum}}次</div>
               <div class="info-file ellipsis">{{item.componentName}}</div>
             </div>
           </div>
@@ -126,10 +126,11 @@ export default {
 .page{
   padding-bottom: 40px;
   padding-top: 70px;
-  padding-left: 15px;
+  // padding-left: 15px;
   height: 100%;
+  overflow: hidden;
   .list{
-    width: 100%;
+    padding: 0 5%;
     .list-item{
       height: 350px;
       background: #fff;
@@ -139,6 +140,7 @@ export default {
       transition: all .5s;
       &:hover{
         box-shadow: 0 0 20px 5px rgba(128, 128, 128, 0.448);
+        transform: scale(1.05);
       }
       .info-img{
         width: 100%;
@@ -155,6 +157,7 @@ export default {
           height: 100%;
           object-fit: contain;
           transition: all .5s;
+          background: rgb(245, 245, 245);
         }
         &:hover img{
           transform: scale(1.4);
@@ -189,7 +192,7 @@ export default {
       .info-title{
         width: 100%;
         text-align: left;
-        font-family: 黑体;
+        // font-family: 黑体;
         font-weight: bold;
         line-height: 20px;
         overflow: hidden;
@@ -201,19 +204,23 @@ export default {
       .info-time{
         color: rgb(168, 168, 168);
         margin-top: 5px;
+        font-family: 'Consolas';
       }
       .info-author{
         font-size: 14px;
         font-weight: bold;
+        font-family:'Times New Roman', Times, serif;
+        color: rgb(190, 152, 108);
       }
       .info-download{
         color: rgb(168, 168, 168);
         font-size: 13px;
+        font-family: 'Courier New', Courier, monospace;
       }
       .info-file{
         flex: 1;
         text-align: right;
-        color: rgb(0, 158, 231);
+        color: rgb(68, 184, 174);
         font-weight: bold;
         font-size: 13px;
         cursor: pointer;

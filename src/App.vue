@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <header class="header">
-      <div>
+      <div style="white-space: nowrap;overflow: hidden;">
         <span class="title" @click="$router.push('/')">组件仓库-VUE</span>
         <input type="text" v-model="key" placeholder="输入关键词搜索..." class="inp-search" v-if="showSearch">
         <el-select v-if="showSearch" v-model="typeId" placeholder="请选择组件类型" size="small" filterable clearable @change="search">
@@ -14,7 +14,7 @@
         </el-select>
         <span v-if="showSearch" class="btn-search" @click="search">搜&nbsp;&nbsp;索</span>
       </div>
-      <div style="display: flex">
+      <div style="display: flex;white-space: nowrap;">
         <div class="btn-subscrible">使用说明</div>
         <div class="login-btn" @click="showLogin=true" v-if="!$store.state.isLogin">登录</div>
         <div class="register-btn" v-if="!$store.state.isLogin" @click="showRegister = true">注册</div>
@@ -180,6 +180,7 @@ export default {
 @import './assets/css/base';
 html,body{
   height: 100%;
+  
 }
 #app {
   -webkit-font-smoothing: antialiased;
@@ -193,7 +194,6 @@ html,body{
 
 #nav {
   padding: 30px;
-
   a {
     font-weight: bold;
     color: #2c3e50;
@@ -297,6 +297,7 @@ html,body{
     margin-right: 30px;
     line-height: 25px;
     cursor: pointer;
+    padding-left: 10px;
   }
 }
 footer{
