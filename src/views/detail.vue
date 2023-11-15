@@ -14,7 +14,7 @@
           <div class="detail-name ellipsis2">{{detail.name}}</div>
           <div class="form-item">
             <div class="label">著作人：</div>
-            <div class="value">{{detail.realName}}{{detail.isAdmin?'（管理员）':''}}</div>
+            <div class="value">{{detail.account}}{{detail.isAdmin?'（管理员）':''}}</div>
           </div>
           <div class="form-item">
             <div class="label">收入时间：</div>

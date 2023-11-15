@@ -34,9 +34,8 @@
     <div class="page-box">
       <el-pagination
         background
-        layout="total, sizes, prev, pager, next, jumper"
+        layout="total, prev, pager, next"
         :total="filters.total"
-        :page-sizes="[30, 60, 90, 120]"
         :page-size="filters.pageSize"
         :current-page="filters.pageIndex"
         @current-change="handleCurrentChange"
@@ -234,6 +233,8 @@ export default {
   .page-box{
     padding: 10px 0;
     height: 35px;
+    text-align: left;
+    margin-left: 5%;
   }
   .no-data{
     padding-bottom: 100px;

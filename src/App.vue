@@ -3,7 +3,7 @@
     <header class="header">
       <div style="white-space: nowrap;overflow: hidden;">
         <span class="title" @click="$router.push('/')">组件仓库-VUE</span>
-        <input type="text" v-model="key" placeholder="输入关键词搜索..." class="inp-search" v-if="showSearch">
+        <input type="text" v-model="key" placeholder="输入关键词搜索..." class="inp-search" v-if="showSearch" @keyup.enter="search">
         <el-select v-if="showSearch" v-model="typeId" placeholder="请选择组件类型" size="small" filterable clearable @change="search">
           <el-option
             v-for="(item, index) in typeList"
