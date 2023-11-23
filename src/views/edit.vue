@@ -148,7 +148,7 @@ export default {
         this.$message.warning('文件大小需小于2M')
         return false
       }
-      upFile(file, o=>{
+      upFile('componentImage/',file, o=>{
         that.form.img = 'http://file.wghuang.fun/' + o.key
         this.$message.success('上传成功')
       })
@@ -161,7 +161,7 @@ export default {
         this.$message.warning('文件大小需小于2M')
         return false
       }
-      upFile(file, f=>{
+      upFile('components/',file, f=>{
         that.form.fileUrl = f.key
         that.form.componentName = file.name
         this.$message.success('上传成功')
