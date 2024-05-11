@@ -1,7 +1,7 @@
 # component-warehouse-vue
-<img src="https://component.wghuang.fun/H.ico">  
+<img src="https://component.wghuang.icu/H.ico">  
 
-See [https://component.wghuang.fun](https://component.wghuang.fun)
+See [https://component.wghuang.icu](https://component.wghuang.icu)
 You can email me to get the registration code
 
 ## Project setup

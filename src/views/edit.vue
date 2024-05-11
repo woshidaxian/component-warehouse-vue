@@ -149,7 +149,7 @@ export default {
         return false
       }
       upFile('componentImage/',file, o=>{
-        that.form.img = 'http://file.wghuang.fun/' + o.key
+        that.form.img = 'http://file.wghuang.icu/' + o.key
         this.$message.success('上传成功')
       })
     },

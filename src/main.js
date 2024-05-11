@@ -24,7 +24,7 @@ if(token){
 }
 
 Vue.prototype.$showImage = function(url){
-  return url.replace('http://file.wghuang.fun', process.env.VUE_APP_FILE_ROOT)
+  return url.replace('http://file.wghuang.icu', process.env.VUE_APP_FILE_ROOT)
 }
 
 Vue.config.productionTip = false

@@ -27,11 +27,11 @@
     </header>
     <router-view ref="page"/>
     <footer>
-      https://component.wghuang.fun&nbsp;|&nbsp;
+      https://component.wghuang.icu&nbsp;|&nbsp;
       <a href="https://beian.miit.gov.cn/" target="blank">
-        浙ICP备2021016384号-2
+        浙ICP备2021016384号-4
       </a>&nbsp;|&nbsp;
-      <a href="http://find.wghuang.fun" target="blank">
+      <a href="http://find.wghuang.icu" target="blank">
         搜分支
       </a>&nbsp;|&nbsp;
       <span class="back-btn" @click="goBack">后台管理</span>
